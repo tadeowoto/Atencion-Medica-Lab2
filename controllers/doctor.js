@@ -32,16 +32,35 @@ export class doctorControl{
         if(!token){
             return res.status(401).redirect('/');
         }
+        const fechaActual = new Date(); // Obtiene la fecha y hora actual
+        const dia = fechaActual.getDate(); // Día del mes (1-31)
+        const mes = fechaActual.getMonth() + 1; // Mes (0-11, por eso sumamos 1)
+        const anio = fechaActual.getFullYear(); // Año (ej. 2024)
+        const fechaFormateada = `${anio}-${mes < 10 ? '0' : ''}${mes}-${dia < 10 ? '0' : ''}${dia}`;
+        const opciones = { day: 'numeric', month: 'long', year: 'numeric' }; // Formato deseado
+        const fechaFormateadaEsp = fechaActual.toLocaleDateString('es-ES', opciones); // Formatea en español
+        
         try {
             const data = jwt.verify(token,SECRET_KEY);
             const userid = data.id;
-            const agenda = await doctorDB.buscarTurnosPorMedico(userid)
+            const agenda = await doctorDB.buscarTurnosPorMedicoYFecha(userid, fechaFormateada);
             if(!agenda){
-                return res.render('agenda', {})
+                return res.render('agenda', {doctor:data.user, agenda:null, fecha:fechaFormateadaEsp});
             }
-            res.render('agenda', {doctor:data.user, agenda})
+            res.render('agenda', {doctor:data.user, agenda, fecha:fechaFormateadaEsp});
         } catch (error) {
             res.status(401).send("Token invalido.")
         }
+    }
+
+    static async cargarAgendaPorFecha(req, res){
+        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+        const token = req.cookies.ACC_TOK
+        if(!token){
+            return res.status(401).redirect('/');
+        }
+
+        const fechaActual = req.params.fecha; // Obtiene la fecha y hora actual
+        console.log('fecha desde el back',fechaActual)
     }
 }

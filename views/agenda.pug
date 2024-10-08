@@ -8,14 +8,14 @@ block content
             div(class="w-3/6 h-5/6 bg-white rounded-lg shadow-md p-10 box-border")
                 div(class="w-full h-24")
                     h3(class="text-2xl font-semibold") Agenda del dia - #{doctor}
-                    p(class="text-sm mt-2 text-secondaryFont") lunes 7 de octubre de 2024
+                    p(class="text-sm mt-2 text-secondaryFont") #{fecha}
                 div(class="flex h-96 flex-col items-center justify-center gap-5")
                   if agenda   
                     each turno in agenda
                         article(class="w-full flex items-center justify-between border-b pb-2")
                             div(class="flex items-center justify-center min-w-36 max-w-52 ")
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock h-5 w-5 text-gray-500" data-id="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                p(class="ml-2 mr-5") #{turno.inicio}
+                                p(class="ml-2 mr-5") #{turno.inicio.split(':').slice(0, 2).join(':')}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-5 w-5 text-gray-500" data-id="16"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                 p(class="ml-2") #{turno.nombre}
                             div(class="flex items-center justify-center min-w-36 max-w-52 gap-5")
@@ -28,4 +28,5 @@ block content
                             
                             
             div(class="w-1/4 h-5/6 bg-white rounded-lg shadow-md p-10 box-border")
-                h3(class="text-2xl font-semibold text-center") Calendario       
+                h3(class="text-2xl font-semibold text-center") Calendario
+                div(id="calendar")

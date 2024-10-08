@@ -5,7 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { corsMiddleware } from "./middlewares/cors.mjs";
 import cookieParser from "cookie-parser";
-
+import { doctorControl } from "./controllers/doctor.js";
 const app = express();
 
 app.use(express.json());
@@ -15,11 +15,12 @@ app.use(cookieParser());
 
 const __filename = fileURLToPath(import.meta.url); // Obtiene el nombre del archivo actual
 const __dirname = path.dirname(__filename); // Obtiene el directorio del archivo actual
+app.use(express.static(path.join(__dirname, 'public'))); // Sirve archivos estáticos desde la carpeta 'public'
 
-// Sirve archivos estáticos desde la carpeta 'public'
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.set('view engine', 'pug');
 app.set('views', './views');
 app.use('/', router);
+app.get('/agenda/:fecha', doctorControl.cargarAgendaPorFecha);
 app.listen(PORT, (req,res)=>{console.log(`Server: http://localhost:${PORT}`)});
