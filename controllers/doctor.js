@@ -8,7 +8,7 @@ export class doctorControl{
         const { user, pass } = req.body
         const usuario = await doctorDB.buscarDoctorPorUsuario(user);
         if(!usuario){
-            throw new Error("El usuario indicado no existe");            
+            return res.render('home', { errorMessage: 'El usuario indicado no existe' });           
         }
         const contraseña = usuario[0].contraseña;
         const saltRounds = 10;
@@ -16,7 +16,7 @@ export class doctorControl{
         const contraHash = await bcrypt.hash(contraseña,salt);
         const contraseñaEsCorrecta = await bcrypt.compare(pass,contraHash);
         if(!contraseñaEsCorrecta){
-            throw new Error("La contraseña y el usuario no coinciden"); 
+            return res.render('home', { errorMessage: 'La contraseña y el usuario no coinciden' });
         }
         const token = jwt.sign({id:usuario[0].id, user:usuario[0].nombre}, SECRET_KEY, {
             expiresIn:"3h"
@@ -32,13 +32,13 @@ export class doctorControl{
         if(!token){
             return res.status(401).redirect('/');
         }
-        const fechaActual = new Date(); // Obtiene la fecha y hora actual
-        const dia = fechaActual.getDate(); // Día del mes (1-31)
-        const mes = fechaActual.getMonth() + 1; // Mes (0-11, por eso sumamos 1)
-        const anio = fechaActual.getFullYear(); // Año (ej. 2024)
+        const fechaActual = new Date();
+        const dia = fechaActual.getDate();
+        const mes = fechaActual.getMonth() + 1;
+        const anio = fechaActual.getFullYear();
         const fechaFormateada = `${anio}-${mes < 10 ? '0' : ''}${mes}-${dia < 10 ? '0' : ''}${dia}`;
-        const opciones = { day: 'numeric', month: 'long', year: 'numeric' }; // Formato deseado
-        const fechaFormateadaEsp = fechaActual.toLocaleDateString('es-ES', opciones); // Formatea en español
+        const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
+        const fechaFormateadaEsp = fechaActual.toLocaleDateString('es-ES', opciones);
         
         try {
             const data = jwt.verify(token,SECRET_KEY);

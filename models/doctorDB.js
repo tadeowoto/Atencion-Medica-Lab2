@@ -24,7 +24,7 @@ export class doctorDB {
 
 
     static async buscarTurnosPorMedicoYFecha(doctor, fecha){
-        const [res] = await con.query('SELECT t.fecha, t.inicio, t.paciente, p.nombre, t.estado FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE m.id = ? AND t.fecha = ?;', [doctor, fecha]); 
+        const [res] = await con.query('SELECT t.fecha, t.inicio, t.paciente, p.nombre, t.estado, a.motivo FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE m.id = ? AND t.fecha = ?;', [doctor, fecha]); 
         if (res.length === 0) {
             console.log("No se encontró ningún turno registrado.");
             return null;

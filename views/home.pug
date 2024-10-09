@@ -6,6 +6,8 @@ block content
             h1(class="whitespace-nowrap tracking-tight text-2xl font-bold text-center") Atención Médica
             p(class=" text-thirdFont mt-2 text-center" ) Inicie sesión para acceder a su agenda
             div(class="w-full h-4/5 flex flex-col items-center justify-center")
+                if errorMessage
+                    p(class="text-red-500 text-sm text-center mb-2") #{errorMessage}
                 form(action="/login" method="POST" class="w-full flex flex-col items-center justify-center mt-10 gap-2")
                     div(class=" w-full h-20 flex flex-col") 
                         label(for="user" class="mb-1 font-medium") Nombre de usuario
