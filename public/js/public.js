@@ -2,40 +2,48 @@ document.addEventListener("DOMContentLoaded", function (e) {
   var calendarEl = document.getElementById("calendar");
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: "dayGridMonth", // Muestra una vista mensual
-    initialDate: new Date(), // Fecha actual como fecha inicial
+    initialView: "dayGridMonth", 
+    initialDate: new Date(), 
     headerToolbar: {
-      // Controles en la parte superior
       left: "prev,next today",
       center: "title",
-      right: "dayGridMonth",
+      right: "",
+    },
+    titleFormat: { 
+      month: 'short',
+      year: 'numeric' 
     },
     dateClick: function (info) {
-      // Maneja el evento de clic en una fecha
-      // Al hacer clic en un día, puedes capturar la fecha seleccionada
       var selectedDate = info.dateStr;
-      const fechaSeleccionada = selectedDate;
-      console.log("fecha desdel el front ", fechaSeleccionada);
-      // aca pordiamos hacer un fetch?
-      fetch(`/agenda?fecha=${selectedDate}`)
+      var selectedDateEl = info.dayEl;
+      selectedDateEl.classList.add("highlight-day");
+      setTimeout(() => {
+        selectedDateEl.classList.remove("highlight-day");
+      }, 400);
+      
+      fetch(`/agenda/${selectedDate}`, {
+        method: "GET",
+        credentials: "include",
+      })
         .then((response) => response.json())
         .then((agenda) => {
           const turnosContainer = document.getElementById("turnos-container");
           turnosContainer.innerHTML = "";
-
-          // Iterar sobre cada turno y crear el HTML
+          if (!Array.isArray(agenda) || agenda.length === 0) {
+            const p = document.createElement("p");
+            p.textContent = "No se encontraron turnos para este dia!";
+            turnosContainer.appendChild(p);
+            return;
+          }
+          // esto crea el carticulo de la agenda  
           agenda.forEach((turno) => {
-            // Crear el artículo
             const article = document.createElement("article");
             article.className =
               "w-full flex items-center justify-between border-b pb-2";
-
-            // Crear el primer div para la información del turno
             const divInfo = document.createElement("div");
             divInfo.className =
               "flex items-center justify-center min-w-36 max-w-52";
 
-            // Agregar el SVG del reloj
             const svgClock = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock h-5 w-5 text-gray-500"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`;
             divInfo.innerHTML += svgClock;
             divInfo.innerHTML += `<p class="ml-2 mr-5">${turno.inicio
@@ -43,13 +51,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
               .slice(0, 2)
               .join(":")}</p>`;
 
-            // Agregar el SVG del usuario
+
             const svgUser = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-5 w-5 text-gray-500"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
             divInfo.innerHTML += svgUser;
             divInfo.innerHTML += `<p class="ml-2">${turno.nombre}</p>`;
             article.appendChild(divInfo);
 
-            // Crear el segundo div para el estado y botón
             const divActions = document.createElement("div");
             divActions.className =
               "flex items-center justify-center min-w-36 max-w-52 gap-5";
@@ -63,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             }
 
             article.appendChild(divActions);
-            turnosContainer.appendChild(article); // Agregar el artículo al contenedor
+            turnosContainer.appendChild(article);
           });
         })
         .catch((error) => {

@@ -22,7 +22,8 @@ export class doctorControl{
             expiresIn:"3h"
         });
         res.cookie("ACC_TOK", token, {
-            secure:process.env.NODE_ENV==="production"
+            secure:process.env.NODE_ENV==="production",
+            sameSite: 'None',
         });
         res.redirect('./agenda');
     }
@@ -54,13 +55,22 @@ export class doctorControl{
     }
 
     static async cargarAgendaPorFecha(req, res){
-        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
         const token = req.cookies.ACC_TOK
         if(!token){
             return res.status(401).redirect('/');
         }
+        const fechaActual = req.params.fecha;
+        try {
+            const data = jwt.verify(token,SECRET_KEY);
+            const userid = data.id;
+            const agenda = await doctorDB.buscarTurnosPorMedicoYFecha(userid, fechaActual);
+            if(agenda === null){
+                return res.json([]);
+            }
 
-        const fechaActual = req.params.fecha; // Obtiene la fecha y hora actual
-        console.log('fecha desde el back',fechaActual)
+            res.json(agenda);
+        } catch (error) {
+            res.status(401).send("Token invalido.");
+        }
     }
 }

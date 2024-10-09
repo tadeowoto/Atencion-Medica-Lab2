@@ -9,7 +9,7 @@ block content
                 div(class="w-full h-24")
                     h3(class="text-2xl font-semibold") Agenda del dia - #{doctor}
                     p(class="text-sm mt-2 text-secondaryFont") #{fecha}
-                div(class="flex h-96 flex-col items-center justify-center gap-5")
+                div(class="flex h-96 flex-col items-center justify-center gap-5" id="turnos-container")
                   if agenda   
                     each turno in agenda
                         article(class="w-full flex items-center justify-between border-b pb-2")
@@ -25,8 +25,9 @@ block content
                                 else     
                                     p(class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800") Atendido
                                     button(class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3") Ver HCE
-                            
+                  else if agenda === null
+                    p No se encontraron turnos para el día de hoy!         
                             
             div(class="w-1/4 h-5/6 bg-white rounded-lg shadow-md p-10 box-border")
-                h3(class="text-2xl font-semibold text-center") Calendario
+                h3(class="text-2xl font-semibold text-center mb-2") Calendario
                 div(id="calendar")
