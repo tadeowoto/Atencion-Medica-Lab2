@@ -2,14 +2,20 @@ extends layout
     
 block content
      body(class="bg-primaryForeground min-h-screen h-screen w-full flex flex-col gap-12 font-sans")
+        style.
+          .highlight-day {
+             background-color: #717175; 
+             transition: color 3s ease;    
+             color: white; 
+          }
         div(class="w-full h-12 mt-5") 
             h1(class="text-3xl text-thirdFont font-semibold text-center") Atención Médica - Agenda Diaria
-        section(class="w-full flex justify-evenly h-full") 
+        section(class="w-full flex justify-evenly h-full")
             div(class="w-3/6 h-5/6 bg-white rounded-lg shadow-md p-10 box-border")
                 div(class="w-full h-24")
                     h3(class="text-2xl font-semibold") Agenda del dia - #{doctor}
                     p(class="text-sm mt-2 text-secondaryFont") #{fecha}
-                div(class="flex h-96 flex-col items-center justify-center gap-5" id="turnos-container")
+                div(class="flex h-96 flex-col items-center justify-start gap-5" id="turnos-container")
                   if agenda   
                     each turno in agenda
                         article(class="w-full flex items-center justify-between border-b pb-2")

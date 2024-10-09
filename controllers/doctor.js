@@ -23,7 +23,6 @@ export class doctorControl{
         });
         res.cookie("ACC_TOK", token, {
             secure:process.env.NODE_ENV==="production",
-            sameSite: 'None',
         });
         res.redirect('./agenda');
     }
