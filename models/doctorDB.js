@@ -31,4 +31,58 @@ export class doctorDB {
         }
         return res;
     }
+
+    static async buscarHistorialPorPacienteYMedico(doctor, paciente){
+        const [res] = await con.query('SELECT t.fecha, a.motivo, a.diagnostico, a.evolucion FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE m.id = ? AND p.id = ?;', [doctor, paciente]); 
+        if (res.length === 0) {
+            console.log("No hay ningún turno registrado del paciente seleccionado.");
+            return null;
+        }
+        return res;
+    }
+
+    static async buscarHistorialDePaciente(paciente){
+        const [res] = await con.query('SELECT t.fecha, a.motivo, a.diagnostico, m.nombre FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE p.id = ?;', [paciente]); 
+        if (res.length === 0) {
+            console.log("No hay ningún turno registrado del paciente seleccionado.");
+            return null;
+        }
+        return res;
+    }
+
+    static async buscarMedicamentoPorPaciente(paciente){
+        const [res] = await con.query('SELECT m.detalle AS medicamento FROM paciente p JOIN medicamentos m ON m.paciente = p.id WHERE p.id = ?;', [paciente]); 
+        if (res.length === 0) {
+            console.log("No hay ningún medicamento en uso del paciente seleccionado.");
+            return null;
+        }
+        return res;
+    }
+
+    static async buscarAlergiaPorPaciente(paciente){
+        const [res] = await con.query('SELECT a.nombre, a.importancia FROM paciente p JOIN alergias a ON a.paciente = p.id WHERE p.id = ?;', [paciente]); 
+        if (res.length === 0) {
+            console.log("No hay ninguna alergia del paciente seleccionado.");
+            return null;
+        }
+        return res;
+    }
+
+    static async buscarHabitoPorPaciente(paciente){
+        const [res] = await con.query('SELECT h.detalle AS habito FROM paciente p JOIN habitos h ON h.paciente = p.id WHERE p.id = ?;', [paciente]); 
+        if (res.length === 0) {
+            console.log("No hay ningun habito del paciente seleccionado.");
+            return null;
+        }
+        return res;
+    }
+
+    static async buscarAntecedentePorPaciente(paciente){
+        const [res] = await con.query('SELECT a.detalle AS antecedente FROM paciente p JOIN antecedentes a ON a.paciente = p.id WHERE p.id = ?;', [paciente]); 
+        if (res.length === 0) {
+            console.log("No hay ningun antecedente del paciente seleccionado.");
+            return null;
+        }
+        return res;
+    }
 }
