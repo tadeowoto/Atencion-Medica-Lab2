@@ -1,0 +1,58 @@
+extends layout 
+    
+block content
+     body(class="bg-primaryForeground min-h-screen h-screen w-full flex flex-col gap-12 font-sans")
+        div(class="w-full h-12 mt-5")
+            h1(class="text-3xl text-thirdFont font-semibold text-center") Atención Médica - Perfil del Paciente 
+        section(class="w-full flex justify-evenly h-full")
+            div(class="w-1/4 h-5/6 bg-white rounded-lg shadow-md p-10 box-border flex flex-col")
+                h3(class="text-2xl font-semibold text-center mb-20") #{nombre.nombre}
+                div(class="w-full flex flex-col items-center justify-center gap-4")
+                    article(class="w-full h-24")
+                        div(class="flex gap-1")
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-triangle-alert mr-2 h-5 w-5 text-yellow-500" data-id="12"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+                            p Alergias 
+                        ul(class="")
+                            if (alergias)
+                                each alergia in alergias
+                                    li #{alergia.nombre} - Importancia: #{alergia.importancia}
+                            else
+                                p(class="mt-2 ml-8") Este paciente no tiene alergias          
+                    article(class="w-full h-24")
+                        div(class="flex gap-1")
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity mr-2 h-5 w-5 text-blue-500" data-id="17"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path></svg>
+                            p Antecedentes Patológicos 
+                        ul(class="")
+                            if (antecedentes)
+                                each antecedente in antecedentes
+                                    li #{antecedente.antecedente}
+                            else
+                                p(class="mt-2 ml-8") Este paciente no tiene antecedentes
+                    article(class="w-full h-24")
+                        div(class="flex gap-1")
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cigarette mr-2 h-5 w-5 text-green-500" data-id="22"><path d="M18 12H2v4h16"></path><path d="M22 12v4"></path><path d="M7 12v4"></path><path d="M18 8c0-2.5-2-2.5-2-5"></path><path d="M22 8c0-2.5-2-2.5-2-5"></path></svg>
+                            p Hábitos 
+                        ul(class="")
+                            if (habitos)
+                                each habito in habitos
+                                    li #{habito.habito}
+                            else
+                                p(class="mt-2 ml-8") Este paciente no tiene hábitos  
+                    article(class="w-full h-24")
+                        div(class="flex gap-1")
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pill mr-2 h-5 w-5 text-red-500" data-id="27"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>
+                            p Medicamentos en uso 
+                        ul(class="")
+                            if (medicamentos)
+                                each medicamento in medicamentos
+                                    li #{medicamento.medicamento}
+                            else
+                                p(class="mt-2 ml-8") Este paciente no tiene medicamentos recetados    
+            div(class="w-3/6 h-5/6 bg-white rounded-lg shadow-md p-10 box-border")
+                h3 Historia Clinica con el medico 
+                p fecha atencion 
+                p  motivo 
+                p evolucion 
+                p diagnostico 
+                         
+                            
