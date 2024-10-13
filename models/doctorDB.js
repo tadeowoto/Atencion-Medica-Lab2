@@ -33,7 +33,7 @@ export class doctorDB {
     }
 
     static async buscarHistorialPorPacienteYMedico(doctor, paciente){
-        const [res] = await con.query('SELECT t.fecha, a.motivo, a.diagnostico, a.evolucion FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE m.id = ? AND p.id = ?;', [doctor, paciente]); 
+        const [res] = await con.query('SELECT t.fecha, a.motivo, a.evolucion FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE m.id = ? AND p.id = ?;', [doctor, paciente]); 
         if (res.length === 0) {
             console.log("No hay ningún turno registrado del paciente seleccionado.");
             return null;
@@ -42,7 +42,7 @@ export class doctorDB {
     }
 
     static async buscarHistorialDePaciente(paciente){
-        const [res] = await con.query('SELECT t.fecha, a.motivo, a.diagnostico, m.nombre FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE p.id = ?;', [paciente]); 
+        const [res] = await con.query('SELECT t.fecha, a.motivo, m.nombre FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE p.id = ?;', [paciente]); 
         if (res.length === 0) {
             console.log("No hay ningún turno registrado del paciente seleccionado.");
             return null;
@@ -81,6 +81,15 @@ export class doctorDB {
         const [res] = await con.query('SELECT a.detalle AS antecedente FROM paciente p JOIN antecedentes a ON a.paciente = p.id WHERE p.id = ?;', [paciente]); 
         if (res.length === 0) {
             console.log("No hay ningun antecedente del paciente seleccionado.");
+            return null;
+        }
+        return res;
+    }
+
+    static async buscarDiagnosticosPorAgenda(agenda){
+        const [res] = await con.query('SELECT d.detalle, d.estado FROM diagnosticos d JOIN agenda a ON a.id = d.agenda WHERE d.agenda = ?;', [agenda]); 
+        if (res.length === 0) {
+            console.log("No hay ningun diagnostico del turno seleccionado.");
             return null;
         }
         return res;
