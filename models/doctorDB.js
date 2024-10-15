@@ -87,7 +87,7 @@ export class doctorDB {
     }
 
     static async buscarDiagnosticosPorAgenda(agenda){
-        const [res] = await con.query('SELECT d.detalle, d.estado FROM diagnosticos d JOIN agenda a ON a.id = d.agenda WHERE d.agenda = ?;', [agenda]); 
+        const [res] = await con.query('SELECT d.detalle, d.estado FROM diagnosticos d JOIN turnos t ON t.id = d.agenda WHERE d.agenda = ?;', [agenda]); 
         if (res.length === 0) {
             console.log("No hay ningun diagnostico del turno seleccionado.");
             return null;
