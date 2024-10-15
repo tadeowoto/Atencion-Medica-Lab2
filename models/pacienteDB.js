@@ -16,7 +16,7 @@ export class pacienteDB {
     static async buscarHistorialPorPacienteYMedico(doctor, paciente){
         console.log('doctor',doctor)
         console.log('paciente',paciente)
-        const [res] = await con.query('SELECT t.fecha, a.motivo, a.evolucion FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE m.id = ? AND p.id = ?;', [doctor, paciente]); 
+        const [res] = await con.query('SELECT t.fecha, a.motivo, a.id, a.evolucion FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE m.id = ? AND p.id = ?;', [doctor, paciente]); 
         console.log(res);
         if (res.length === 0) {
             console.log("No hay ningún turno registrado del paciente seleccionado.");
@@ -26,7 +26,7 @@ export class pacienteDB {
     }
 
     static async buscarHistorialDePaciente(paciente){
-        const [res] = await con.query('SELECT t.fecha, a.motivo, m.nombre FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE p.id = ?;', [paciente]); 
+        const [res] = await con.query('SELECT t.fecha, a.motivo, a.id, m.nombre FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE p.id = ?;', [paciente]); 
         if (res.length === 0) {
             console.log("No hay ningún turno registrado del paciente seleccionado.");
             return null;
