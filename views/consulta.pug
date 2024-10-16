@@ -2,13 +2,36 @@ extends layout
     
 block content
      body(class="bg-primaryForeground min-h-screen h-screen w-full flex flex-col gap-12 font-sans")
-        div(class="w-full h-12 mt-5") 
-            h1(class="text-3xl text-thirdFont font-semibold text-center") Atención Médica - Agenda Diaria
+        div(class="w-full h-12  flex items-center justify-end") 
+            h1(class="mt-20 text-2xl text-thirdFont font-semibold mr-32") Consulta - #{nombre.nombre}
         section(class="w-full flex justify-evenly h-full")
-            div(class="w-3/6 h-5/6 bg-white rounded-lg shadow-md p-10 box-border")
-                              
+            div(class="w-3/6 h-5/6 bg-white rounded-lg shadow-md p-10 box-border flex flex-col gap-3")
+                div(class="w-full h-5 flex items-center")
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2 h-6 w-6 text-primary" data-id="12"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                    h3(class="text-2xl font-semibold") Nueva Consulta
+                div(class=" w-full h-full")
+                    form(class="flex flex-col" action="/consulta" method="POST")
+                        label(for="") Motivo de la Consulta
+                        input(type="text")
+                        label(for="") Motivo de la Consulta
+                        input(type="text")
+                        label(for="") Motivo de la Consulta
+                        input(type="text")
+                        label(for="") Motivo de la Consulta
+                        input(type="text")
+                        div 
+                            label Alergias
+                            select(name="") alergias
+                                option(value="a1") a1
+                                option(value="a1") a2
+                                option(value="a1") a3
+                            label(for="") Otra cosa de las alegias
+                            input
+                        button(action="submit") Cerrar Consulta     
+
+
+
             div(class="w-1/4 h-5/6 bg-white rounded-lg shadow-md p-10 box-border flex flex-col ")
-                h3(class="text-xl font-semibold text-center mb-2") #{nombre.nombre}
                 div(class=" max-h-full w-full flex flex-col items-center justify-center gap-12")
                     article(class="w-full h-24")
                         div(class="flex gap-1")

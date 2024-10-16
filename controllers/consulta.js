@@ -73,4 +73,10 @@ export class consultaControl{
         res.render('consulta', {alergias, antecedentes, habitos, medicamentos, nombre: nombre[0], historialPacienteMedico, historialPacienteGeneral, nombreDoctor: nombreMedico});
     }
 
+
+    static async insertarConsulta(req,res){
+        // no se que deberia reenderizar? deberia reenderizar la agenda con los estados actualizados (cambiar el estado de el turno en la agenda)
+    }
+
+
 }
