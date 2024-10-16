@@ -15,7 +15,6 @@ export class pacienteDB {
 
     static async buscarHistorialPorPacienteYMedico(doctor, paciente){
         const [res] = await con.query('SELECT t.fecha, a.motivo, t.id, a.evolucion FROM turnos t JOIN agenda a ON t.agenda = a.id JOIN medico m ON a.medico = m.id JOIN paciente p ON t.paciente = p.id WHERE m.id = ? AND p.id = ?;', [doctor, paciente]); 
-        console.log(res);
         if (res.length === 0) {
             console.log("No hay ningún turno registrado del paciente seleccionado.");
             return null;

@@ -1,5 +1,8 @@
 extends layout 
-    
+
+block head 
+    script(src="/js/consulta.js" defer)    
+
 block content
      body(class="bg-primaryForeground min-h-screen h-screen w-full flex flex-col gap-12 font-sans")
         div(class="w-full h-12  flex items-center justify-end") 
@@ -11,22 +14,38 @@ block content
                     h3(class="text-2xl font-semibold") Nueva Consulta
                 div(class=" w-full h-full")
                     form(class="flex flex-col" action="/consulta" method="POST")
-                        label(for="") Motivo de la Consulta
-                        input(type="text")
-                        label(for="") Motivo de la Consulta
-                        input(type="text")
-                        label(for="") Motivo de la Consulta
-                        input(type="text")
-                        label(for="") Motivo de la Consulta
-                        input(type="text")
-                        div 
+                        label(for="evolucion") Evolución
+                        select(name="evoTemplate" id="selectEvolucion" )
+                            option(value="", disabled=true, selected=true id="default") Selecciona una opción
+                            option(value="T1") Evaluación inicial
+                            option(value="T2") Control de seguimiento
+                            option(value="T3") Revisión postquirúrgica
+                            option(value="T4") Ajuste de tratamiento
+                            option(value="T5") Alta médica
+                        textarea(class="h-20 w-full text-sm resize-none" type="text" name="evolucion" id="inputEvolucion" required)
+                        div(id="diagnosticoBox")
+                            label(for="") Diagnóstico/s
+                            select(name="")
+                                option(value="Preliminar") Preliminar  
+                                option(value="Confirmado") Confirmado  
+                            input(type="text" required)
+                        button(type="button" onClick="agregarInputDiag()") Añadir Diagnóstico    
+                        div(id="alergiaBox") 
                             label Alergias
-                            select(name="") alergias
-                                option(value="a1") a1
-                                option(value="a1") a2
-                                option(value="a1") a3
-                            label(for="") Otra cosa de las alegias
-                            input
+                            select(name="")
+                                option(value="nada", disabled=true, selected=true) Alergia
+                                each alergia in alergiasOpciones
+                                    option(value=`#{alergia}`) #{alergia}
+                            select(name="") 
+                                option(value="nada", disabled=true, selected=true) Importancia
+                                option(value="Leve") Leve
+                                option(value="Normal") Normal
+                                option(value="Alta") Alta
+                            label(for="desde") Desde    
+                            input(type="date" name="desde")    
+                            label(for="hasta") Hasta    
+                            input(type="date" name="hasta")    
+                        button(type="button" onClick="agregarInputAlergia()") Añadir Alergia    
                         button(action="submit") Cerrar Consulta     
 
 

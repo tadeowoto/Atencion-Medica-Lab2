@@ -8,13 +8,30 @@ export class consultaControl{
     
     static async cargarConsulta(req, res){
         const { idDePaciente } = req.params;
-        console.log("ID DEL PACIENTE" , idDePaciente)
         const alergias = await pacienteDB.buscarAlergiaPorPaciente(idDePaciente);
         const antecedentes = await pacienteDB.buscarAntecedentePorPaciente(idDePaciente);
         const habitos = await pacienteDB.buscarHabitoPorPaciente(idDePaciente);
         const medicamentos = await pacienteDB.buscarMedicamentoPorPaciente(idDePaciente);
         const nombre = await pacienteDB.buscarNombrePorIdPaciente(idDePaciente);
-        console.log(nombre)
+        const alergiasOpciones = [
+            "Choque anafiláctico alérgico",
+            "Consulta para instrucción y vigilancia dietética sobre la alergia",
+            "Alergia en contacto con la piel",
+            "Alergia a ambrosía (polen) (fiebre del heno)",
+            "Alergia a un animal (caspa) (epidermis) (pelos) (rinitis)",
+            "Alergia a un árbol (cualquiera) (fiebre del heno) (polen)",
+            "Fiebre del heno con asma",
+            "Alergia biológica (ver Alergia, droga)",
+            "Alergia a la caspa (animal) (rinitis)",
+            "Choque alérgico (anafiláctico)",
+            "Choque alérgico debido a efecto adverso de sustancia medicinal correctamente administrada",
+            "Choque alérgico por suero o inmunización",
+            "Colitis alérgica",
+            "Alergia a cosméticos, perfumes",
+            "Dermatitis alérgica (ver también Dermatitis)",
+            "Alergia a una droga, medicamento o producto biológico (cualquiera) (externo) (interno) (sustancia medicinal administrada apropiadamente)",
+            "Alergia a una sustancia errónea administrada o tomada NCOP"
+        ];
         const token = req.cookies.ACC_TOK
         let historialPacienteMedico
         let nombreMedico
@@ -70,12 +87,14 @@ export class consultaControl{
         }
 
 
-        res.render('consulta', {alergias, antecedentes, habitos, medicamentos, nombre: nombre[0], historialPacienteMedico, historialPacienteGeneral, nombreDoctor: nombreMedico});
+        res.render('consulta', {alergias, antecedentes, habitos, medicamentos, nombre: nombre[0], historialPacienteMedico, historialPacienteGeneral, nombreDoctor: nombreMedico, alergiasOpciones});
     }
 
 
     static async insertarConsulta(req,res){
         // no se que deberia reenderizar? deberia reenderizar la agenda con los estados actualizados (cambiar el estado de el turno en la agenda)
+        //pasar estado a atendido
+        //render a agenda
     }
 
 
