@@ -34,11 +34,11 @@ block content
                                     p #{turno.motivo}
                             div(class="flex items-center justify-center min-w-36 max-w-52 gap-5")
                                 if turno.estado==='pendiente' 
-                                    p(class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800") Pendiente
-                                    button(class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3") Abrir Consulta
+                                    p(class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800") Pendiente 
+                                    a(href=`/consulta/${turno.paciente}` class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3") Abrir Consulta
                                 else     
-                                    p(class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800") Atendido
-                                    a( href="#"  class="modalConsulta" class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3") Ver HCE
+                                    p(class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800") Atendido 
+                                    a( href=`/consulta/${turno.paciente}`  class="modalConsulta" class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3") Ver HCE
                   else if agenda === null
                     p No se encontraron turnos para el día de hoy!         
                             
