@@ -36,23 +36,32 @@ function agregarInputDiag() {
     const diagSelect = document.createElement("select")
     const diagEstado1 = document.createElement("option")
     const diagEstado2 = document.createElement("option")
+    const diagContainer = document.createElement("div");
+    diagContainer.classList.add("flex", "gap-2");
 
-    diagInput.type = "text"
-    diagInput.required = true
+    diagInput.type = "text";
+    diagInput.required = true;
+    diagInput.className = "w-full h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300"; 
 
-    diagEstado1.value = "Preliminar"
-    diagEstado1.textContent = "Preliminar"
-    diagEstado2.value = "Confirmado"
-    diagEstado2.textContent = "Confirmado"
-    diagSelect.appendChild(diagEstado1)
-    diagSelect.appendChild(diagEstado2)
-
-    diagBox.appendChild(diagSelect)
-    diagBox.appendChild(diagInput)
+    diagEstado1.value = "Preliminar";
+    diagEstado1.textContent = "Preliminar";
+    diagEstado2.value = "Confirmado";
+    diagEstado2.textContent = "Confirmado";
+    diagSelect.className = "h-8 w-40 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300";
+    
+    diagSelect.appendChild(diagEstado1);
+    diagSelect.appendChild(diagEstado2);
+    diagContainer.appendChild(diagSelect);
+    diagContainer.appendChild(diagInput);
+    diagBox.appendChild(diagContainer);
 }
 function agregarInputAlergia() {
-    const alergiaSelect = document.createElement("select")
-    const importantSelect = document.createElement("select")
+    const alergiaContainer = document.createElement("div");
+    alergiaContainer.classList.add("w-full", "flex", "flex-wrap", "gap-2");
+
+    const alergiaSelect = document.createElement("select");
+    const importantSelect = document.createElement("select");
+    
     const alergias = [
         "Choque anafiláctico alérgico",
         "Consulta para instrucción y vigilancia dietética sobre la alergia",
@@ -72,56 +81,69 @@ function agregarInputAlergia() {
         "Alergia a una droga, medicamento o producto biológico (cualquiera) (externo) (interno) (sustancia medicinal administrada apropiadamente)",
         "Alergia a una sustancia errónea administrada o tomada NCOP"
     ];
-    const leve = document.createElement("option")
-    const normal = document.createElement("option")
-    const alta = document.createElement("option")
-    const opcionDefaultA = document.createElement("option")
-    const opcionDefaultI = document.createElement("option")
-    const desde = document.createElement("input")
-    const hasta = document.createElement("input")
-    const lDesde = document.createElement("label")
-    const lHasta = document.createElement("label")
 
-    leve.value = "Leve"
-    leve.textContent = "Leve"
-    normal.value = "Normal"
-    normal.textContent = "Normal"
-    alta.value = "Alta"
-    alta.textContent = "Alta"
+    const leve = document.createElement("option");
+    const normal = document.createElement("option");
+    const alta = document.createElement("option");
+    const opcionDefaultA = document.createElement("option");
+    const opcionDefaultI = document.createElement("option");
 
-    opcionDefaultA.textContent = "Alergia"
-    opcionDefaultI.textContent = "Importancia"
-    opcionDefaultA.value = "nada"
-    opcionDefaultI.value = "nada"
-    opcionDefaultA.disabled = true
-    opcionDefaultA.selected = true
-    opcionDefaultI.disabled = true
-    opcionDefaultI.selected = true
-    alergiaSelect.appendChild(opcionDefaultA)
-    importantSelect.appendChild(opcionDefaultI)
+    const desde = document.createElement("input");
+    const hasta = document.createElement("input");
 
-    alergias.forEach((a)=>{
-        const alergia = document.createElement("option")
-        alergia.value = a
-        alergia.textContent = a 
-        alergiaSelect.appendChild(alergia)
-    })
+    const lDesde = document.createElement("label");
+    const lHasta = document.createElement("label");
 
-    importantSelect.appendChild(leve)
-    importantSelect.appendChild(normal)
-    importantSelect.appendChild(alta)
+    alergiaSelect.className = "w-52 h-8 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300";
+    importantSelect.className = "h-8 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300";
 
-    desde.type = "date"
-    hasta.type = "date"
-    desde.value = "desde"
-    hasta.value = "hasta"
-    lDesde.textContent = "Desde"
-    lHasta.textContent = "Hasta"
+    leve.value = "Leve";
+    leve.textContent = "Leve";
+    normal.value = "Normal";
+    normal.textContent = "Normal";
+    alta.value = "Alta";
+    alta.textContent = "Alta";
 
-    alergiaBox.appendChild(alergiaSelect)
-    alergiaBox.appendChild(importantSelect)
-    alergiaBox.appendChild(lDesde)
-    alergiaBox.appendChild(desde)
-    alergiaBox.appendChild(lHasta)
-    alergiaBox.appendChild(hasta)
+    opcionDefaultA.textContent = "Alergia";
+    opcionDefaultI.textContent = "Importancia";
+    opcionDefaultA.value = "nada";
+    opcionDefaultI.value = "nada";
+    opcionDefaultA.disabled = true;
+    opcionDefaultA.selected = true;
+    opcionDefaultI.disabled = true;
+    opcionDefaultI.selected = true;
+
+    alergiaSelect.appendChild(opcionDefaultA);
+    importantSelect.appendChild(opcionDefaultI);
+
+    alergias.forEach((a) => {
+        const alergia = document.createElement("option");
+        alergia.value = a;
+        alergia.textContent = a;
+        alergiaSelect.appendChild(alergia);
+    });
+
+    importantSelect.appendChild(leve);
+    importantSelect.appendChild(normal);
+    importantSelect.appendChild(alta);
+
+    desde.type = "date";
+    desde.className = "w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300";
+    hasta.type = "date";
+    hasta.className = "w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300";
+
+    lDesde.textContent = "Desde";
+    lHasta.textContent = "Hasta";
+
+    lDesde.className = "text-sm font-semibold";
+    lHasta.className = "text-sm font-semibold";
+
+    alergiaContainer.appendChild(alergiaSelect);
+    alergiaContainer.appendChild(importantSelect);
+    alergiaContainer.appendChild(lDesde);
+    alergiaContainer.appendChild(desde);
+    alergiaContainer.appendChild(lHasta);
+    alergiaContainer.appendChild(hasta);
+
+    alergiaBox.appendChild(alergiaContainer);
 }
