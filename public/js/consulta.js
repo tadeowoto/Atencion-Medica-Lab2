@@ -49,6 +49,8 @@ function agregarInputDiag() {
     diagEstado2.textContent = "Confirmado";
     diagSelect.className = "h-8 w-40 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300";
     
+    diagSelect.name = "estadosDiagnosticos[]"
+    diagInput.name = "diagnosticos[]"
     diagSelect.appendChild(diagEstado1);
     diagSelect.appendChild(diagEstado2);
     diagContainer.appendChild(diagSelect);
@@ -96,6 +98,11 @@ function agregarInputAlergia() {
 
     alergiaSelect.className = "w-52 h-8 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300";
     importantSelect.className = "h-8 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300";
+    alergiaSelect.name = "alergias[]";
+    importantSelect.name = "importancia[]";
+    desde.name= "desdeAlergias[]";
+    hasta.name= "hastaAlergias[]";
+
 
     leve.value = "Leve";
     leve.textContent = "Leve";
@@ -138,6 +145,8 @@ function agregarInputAlergia() {
     lDesde.className = "text-sm font-semibold";
     lHasta.className = "text-sm font-semibold";
 
+
+
     alergiaContainer.appendChild(alergiaSelect);
     alergiaContainer.appendChild(importantSelect);
     alergiaContainer.appendChild(lDesde);
@@ -146,4 +155,118 @@ function agregarInputAlergia() {
     alergiaContainer.appendChild(hasta);
 
     alergiaBox.appendChild(alergiaContainer);
+}
+
+function agregarInputHabitos() {
+    const habitostxtArea = document.createElement("textarea");
+    const habitoLabel = document.createElement("label");
+    const habitoContainer = document.getElementById("habitoBox");
+    const divArriba = document.createElement("div");
+    const divAbajo = document.createElement("div");
+    divArriba.className = "w-full flex flex-wrap gap-2 flex-col";
+    divAbajo.className = "w-full flex flex-wrap gap-2";
+
+
+    const desde = document.createElement("input");
+    const hasta = document.createElement("input");
+
+    const lDesde = document.createElement("label");
+    const lHasta = document.createElement("label");
+
+    habitoLabel.className = "text-sm font-semibold";
+    habitoLabel.textContent = "Descripción";
+    desde.type = "date";
+    desde.className = "w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300";
+    hasta.type = "date";
+    hasta.className = "w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300";
+
+    lDesde.textContent = "Desde";
+    lHasta.textContent = "Hasta";
+
+    lDesde.className = "text-sm font-semibold";
+    lHasta.className = "text-sm font-semibold";
+
+    desde.name= "desdeHabitos[]";
+    hasta.name= "hastaHabitos[]";
+
+    habitostxtArea.name = "habitos[]";
+    habitostxtArea.className = "h-16 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 mt-1";
+
+    divArriba.appendChild(habitoLabel);
+    divArriba.appendChild(habitostxtArea)
+
+    divAbajo.appendChild(lDesde);
+    divAbajo.appendChild(desde);
+    divAbajo.appendChild(lHasta);
+    divAbajo.appendChild(hasta);
+
+    habitoContainer.appendChild(divArriba);
+    habitoContainer.appendChild(divAbajo);       
+}
+
+function agregarInputAntecedente(){
+    const antecedentetxtArea = document.createElement("textarea");
+    const antecedenteLabel = document.createElement("label");
+    const antecedenteContainer = document.getElementById("antecedenteBox");
+
+    const divArriba = document.createElement("div");
+    const divAbajo = document.createElement("div");
+    divArriba.className = "w-full flex flex-wrap gap-2 flex-col";
+    divAbajo.className = "w-full flex flex-wrap gap-2";
+
+    const desde = document.createElement("input");
+    const hasta = document.createElement("input");
+
+    const lDesde = document.createElement("label");
+    const lHasta = document.createElement("label");
+
+    antecedenteLabel.className = "text-sm font-semibold";
+    antecedenteLabel.textContent = "Descripción";
+    desde.type = "date";
+    desde.className = "w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300";
+    hasta.type = "date";
+    hasta.className = "w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300";
+
+    lDesde.textContent = "Desde";
+    lHasta.textContent = "Hasta";
+
+    lDesde.className = "text-sm font-semibold";
+    lHasta.className = "text-sm font-semibold";
+
+    desde.name= "desdeAntecedentes[]";
+    hasta.name= "hastaAntecedentes[]";
+
+    antecedentetxtArea.name = "antecedentes[]";
+    antecedentetxtArea.className = "h-16 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 mt-1";
+
+    divArriba.appendChild(antecedenteLabel);
+    divArriba.appendChild(antecedentetxtArea);
+    divAbajo.appendChild(lDesde);
+    divAbajo.appendChild(desde);
+    divAbajo.appendChild(lHasta);
+    divAbajo.appendChild(hasta);
+
+    antecedenteContainer.appendChild(divArriba);
+    antecedenteContainer.appendChild(divAbajo); 
+}
+
+function agregarInputMedicamento(){
+    const medicamentostxtArea = document.createElement("textarea");
+    const medicamentosLabel = document.createElement("label");
+    const medicamentosContainer = document.getElementById("medicamentoBox");
+    const divArriba = document.createElement("div");
+    divArriba.className = "w-full flex flex-wrap gap-2 flex-col";
+
+
+
+    medicamentosLabel.className = "text-sm font-semibold";
+    medicamentosLabel.textContent = "Descripción";
+    
+    medicamentostxtArea.name = "medicamentos[]";
+    medicamentostxtArea.className = "h-16 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 mt-1";
+
+    divArriba.appendChild(medicamentosLabel);
+    divArriba.appendChild(medicamentostxtArea);
+
+    medicamentosContainer.appendChild(divArriba);
 }

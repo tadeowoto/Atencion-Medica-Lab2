@@ -9,54 +9,92 @@ block content
             div(class="w-full h-12  flex items-center justify-end") 
                 h1(class="mt-20 text-2xl text-thirdFont font-semibold mr-32") Consulta - #{nombre.nombre}
             section(class="w-full flex justify-evenly h-full")
-                div(class="w-3/6 h-full bg-white rounded-lg shadow-md p-10 box-border flex flex-col gap-3 ")
+                div(class="w-3/6 h-full bg-white rounded-lg shadow-md p-10 box-border flex flex-col gap-3")
                     div(class="w-full h-5 flex items-center")
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2 h-6 w-6 text-primary" data-id="12"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                        svg(xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2 h-6 w-6 text-primary")
+                            path(d="M5 12h14")
+                            path(d="M12 5v14")
                         h3(class="text-2xl font-semibold") Nueva Consulta
-                    div(class="w-full h-full flex flex-col gap-5")
-                        form(class="flex flex-col space-y-4 p-4 bg-white rounded-lg h-full overflow-y-auto" action="/consulta" method="POST" id="formularioConsulta")
-                            label(for="evolucion" class="text-md text-secondaryColor font-semibold") Evolución
-                            select(name="evoTemplate" id="selectEvolucion" class="h-10 w-full rounded-md border bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300")
-                                option(value="", disabled=true, selected=true id="default") Selecciona una opción
-                                option(value="T1") Evaluación inicial
-                                option(value="T2") Control de seguimiento
-                                option(value="T3") Revisión postquirúrgica
-                                option(value="T4") Ajuste de tratamiento
-                                option(value="T5") Alta médica
-                            textarea(class="h-20 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 mt-1" name="evolucion" id="inputEvolucion" required)
-                            
-                            label(for="" class="text-md text-secondaryColor font-semibold mt-2") Diagnóstico/s
-                            div(class="flex flex-col w-full max-h-40 space-y-2 overflow-y-auto" id="diagnosticoBox")
-                                div(class="flex gap-2")
-                                    select(name="" class="h-8 w-40 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300")
-                                        option(value="Preliminar") Preliminar  
-                                        option(value="Confirmado") Confirmado  
-                                    input(type="text" required class="w-full h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300")
-                            
-                            button(type="button" onClick="agregarInputDiag()" class="flex items-center justify-center text-sm font-medium border bg-gray-100 text-secondaryColor w-40 h-9 rounded-md focus:ring-2 focus:ring-gray-300") Añadir Diagnóstico
-                            
-                            label(for="" class="text-md text-secondaryColor font-semibold mt-2") Alergias
-                             div(id="alergiaBox" class="flex flex-col space-y-4 overflow-y-auto max-h-40")
-                                div(class="w-full flex flex-wrap gap-2") 
-                                    select(name="" class="w-52 h-8 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300")
-                                        option(value="nada", disabled=true, selected=true) Alergia
-                                        each alergia in alergiasOpciones
-                                            option(value=`#{alergia}`) #{alergia}
-                                    select(name="" class="h-8 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300")
-                                        option(value="nada", disabled=true, selected=true) Importancia
-                                        option(value="Leve") Leve
-                                        option(value="Normal") Normal
-                                        option(value="Alta") Alta
 
-                                div(class="w-full flex flex-wrap gap-2")
-                                    label(for="desde" class="text-sm font-semibold") Desde    
-                                    input(type="date" name="desde" class="w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300")    
-                                    label(for="hasta" class="text-sm font-semibold") Hasta    
-                                    input(type="date" name="hasta" class="w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300")
+                    div(class="w-full h-full flex flex-col gap-5 overflow-y-auto")
+                        form(class="flex flex-col gap-6  p-4 bg-white rounded-lg overflow-y-scroll" action="/consulta" method="POST" id="formularioConsulta")
+                            div(class="w-full h-60")
+                                label(for="evolucion" class="text-md text-secondaryColor font-semibold") Evolución
+                                select(name="evoTemplate" id="selectEvolucion" class="h-10 w-full rounded-md border bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300")
+                                    option(value="", disabled=true, selected=true id="default") Selecciona una opción
+                                    option(value="T1") Evaluación inicial
+                                    option(value="T2") Control de seguimiento
+                                    option(value="T3") Revisión postquirúrgica
+                                    option(value="T4") Ajuste de tratamiento
+                                    option(value="T5") Alta médica
+                                textarea(class="h-24 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 mt-1" name="evolucion" id="inputEvolucion" required)
+
+                            div(class="w-full h-60 border-b-2 border-t-2 border-gray-300 pb-4 pt-4 box-border flex flex-col")
+                                label(for="" class="text-md text-secondaryColor font-semibold mt-2") Diagnóstico/s
+                                div(class="flex flex-col w-full max-h-32 space-y-2 overflow-y-auto" id="diagnosticoBox")
+                                    div(class="flex gap-2")
+                                        select(class="h-8 w-40 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300" name="estadosDiagnosticos[]")
+                                            option(value="Preliminar") Preliminar  
+                                            option(value="Confirmado") Confirmado  
+                                        input(type="text" required class="w-full h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300" name="diagnosticos[]")
+                                button(type="button" onClick="agregarInputDiag()" class="flex items-center justify-center text-sm font-medium border bg-gray-100 text-secondaryColor w-40 h-9 rounded-md focus:ring-2 focus:ring-gray-300") Añadir Diagnóstico
+
+                            div(class="w-full h-60 border-b-2 border-t-2 border-gray-300 pb-4 pt-4 box-border flex flex-col")
+                                label(for="" class="text-md text-secondaryColor font-semibold mt-2") Alergias
+                                div(id="alergiaBox" class="flex flex-col space-y-4 overflow-y-scroll h-60")
+                                    div(class="w-full flex flex-wrap gap-2")
+                                        select(name="alergias[]" class="w-52 h-8 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300")
+                                            option(value="nada", disabled=true, selected=true) Alergia
+                                            each alergia in alergiasOpciones
+                                                option(value=`#{alergia}`) #{alergia}
+                                        select(name="importancia[]" class="h-8 rounded-md border bg-background px-2 py-1 text-xs focus:ring-2 focus:ring-gray-300")
+                                            option(value="nada", disabled=true, selected=true) Importancia
+                                            option(value="Leve") Leve
+                                            option(value="Normal") Normal
+                                            option(value="Alta") Alta
+                                    div(class="w-full flex flex-wrap gap-2")
+                                        label(for="desde" class="text-sm font-semibold") Desde    
+                                        input(type="date" name="desdeAlergias[]" class="w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300")    
+                                        label(for="hasta" class="text-sm font-semibold") Hasta    
+                                        input(type="date" name="hastaAlergias[]" class="w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300")
+                                button(type="button" onClick="agregarInputAlergia()" class="flex items-center justify-center text-sm font-medium border bg-gray-100 text-secondaryColor w-40 h-9 rounded-md focus:ring-2 focus:ring-gray-300 mt-1") Añadir Alergia
+
+                            div(class="w-full h-60 border-b-2 border-t-2 border-gray-300 pb-4 pt-4 box-border flex flex-col")
+                                div(id="habitoBox" class="flex flex-col space-y-4 overflow-y-scroll h-60")
+                                    div(class="w-full flex flex-wrap gap-2 flex-col")
+                                        h3(class="text-md text-secondaryColor font-semibold") Hábitos 
+                                        label(for="habitos" class="text-sm font-semibold") Descripción    
+                                        textarea(class="h-16 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 mt-1" name="habitos[]")
+                                    div(class="w-full flex flex-wrap gap-2")
+                                        label(for="desde" class="text-sm font-semibold") Desde    
+                                        input(type="date" name="desdeHabitos[]" class="w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300")    
+                                        label(for="hasta" class="text-sm font-semibold") Hasta    
+                                        input(type="date" name="hastaHabitos[]" class="w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300")
+                                button(type="button" onClick="agregarInputHabitos()" class="flex items-center justify-center text-sm font-medium border bg-gray-100 text-secondaryColor w-40 h-9 rounded-md focus:ring-2 focus:ring-gray-300 mt-1") Añadir Hábito
+
+                            div(class="w-full h-60 border-b-2 border-t-2 border-gray-300 pb-4 pt-4 box-border flex flex-col")
+                                div(id="antecedenteBox" class="flex flex-col space-y-4 overflow-y-scroll h-60")
+                                    div(class="w-full flex flex-wrap gap-2 flex-col")
+                                        h3(class="text-md text-secondaryColor font-semibold") Antecedentes 
+                                        label(for="antecedentes" class="text-sm font-semibold") Descripción    
+                                        textarea(class="h-16 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 mt-1" name="antecedentes[]")
+                                    div(class="w-full flex flex-wrap gap-2")
+                                        label(for="desde" class="text-sm font-semibold") Desde    
+                                        input(type="date" name="desdeAntecedentes[]" class="w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300")    
+                                        label(for="hasta" class="text-sm font-semibold") Hasta    
+                                        input(type="date" name="hastaAntecedentes[]" class="w-40 h-8 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-gray-300")
+                                button(type="button" onClick="agregarInputAntecedente()" class="flex items-center justify-center text-sm font-medium border bg-gray-100 text-secondaryColor w-40 h-9 rounded-md focus:ring-2 focus:ring-gray-300 mt-1") Añadir Antecedente
                             
-                            button(type="button" onClick="agregarInputAlergia()" class="flex items-center justify-center text-sm font-medium border bg-gray-100 text-secondaryColor w-40 h-9 rounded-md focus:ring-2 focus:ring-gray-300") Añadir Alergia
+                            div(class="w-full h-60 border-b-2 border-t-2 border-gray-300 pb-4 pt-4 box-border flex flex-col")
+                                div(id="medicamentoBox" class="flex flex-col space-y-4 overflow-y-scroll h-60")
+                                    div(class="w-full flex flex-wrap gap-2 flex-col") 
+                                        h3(class="text-md text-secondaryColor font-semibold") Medicamentos
+                                        label(for="medicamentos" class="text-sm font-semibold") Descripción    
+                                        textarea(class="h-16 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 mt-1" name="medicamentos[]")
+                                button(type="button" onClick="agregarInputMedicamento()" class="flex items-center justify-center text-sm font-medium border bg-gray-100 text-secondaryColor w-40 h-9 rounded-md focus:ring-2 focus:ring-gray-300 mt-1") Añadir Medicamento
                             
-                        button(type="submit" form="formularioConsulta" class="flex items-center justify-center text-sm font-medium bg-secondaryColor text-white w-full h-9 rounded-md hover:bg-secondaryColor/50 focus:ring-2 focus:ring-gray-300") Cerrar Consulta
+                            div(class="w-full h-60 border-b-2 border-gray-300 pb-4 box-border flex flex-col")
+                                button(type="submit" form="formularioConsulta" class="flex items-center justify-center text-sm font-medium bg-secondaryColor text-white w-full h-9 rounded-md hover:bg-secondaryColor/50 focus:ring-2 focus:ring-gray-300") Cerrar Consulta
 
 
                 div(class="w-1/4 h-2/3 bg-white rounded-lg shadow-md p-10 box-border flex flex-col ")
