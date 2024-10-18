@@ -92,9 +92,19 @@ export class consultaControl{
 
 
     static async insertarConsulta(req,res){
-        // no se que deberia reenderizar? deberia reenderizar la agenda con los estados actualizados (cambiar el estado de el turno en la agenda)
+
+        console.log(req.body.evolucion)
+        console.log(req.body.diagnosticos)
+        console.log(req.body.estadosDiagnosticos)
+        console.log(req.body.alergias)
+        console.log(req.body.importancia)
+        console.log(req.body.desdeAlergias)
+        console.log(req.body.hastaAlergias)
+
+        //id del turno desde la agenda? id del turno para diagnostico y evolucion
+        //id paciente en la ruta
         //pasar estado a atendido
-        //render a agenda
+        //render a agenda, user medico, agenda(id medico), fechaactual
     }
 
 
