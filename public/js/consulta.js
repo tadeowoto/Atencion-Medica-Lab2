@@ -115,9 +115,7 @@ function agregarInputAlergia() {
     opcionDefaultI.textContent = "Importancia";
     opcionDefaultA.value = "nada";
     opcionDefaultI.value = "nada";
-    opcionDefaultA.disabled = true;
     opcionDefaultA.selected = true;
-    opcionDefaultI.disabled = true;
     opcionDefaultI.selected = true;
 
     alergiaSelect.appendChild(opcionDefaultA);
