@@ -164,6 +164,8 @@ export class consultaControl{
 
         await consultaDB.actualizarEstadoConsulta(idTurno);
 
+        res.render('agregado');
+
 
         //id del turno desde la agenda? id del turno para diagnostico y evolucion
         //id paciente en la ruta <-- hice esta en el action del form :))))))

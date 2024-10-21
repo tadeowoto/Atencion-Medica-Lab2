@@ -1,0 +1,11 @@
+extends layout 
+    
+block content
+     body(class="bg-primaryForeground min-h-screen w-full flex items-center justify-center font-sans")
+        div(class="bg-white w-96 h-4/5 rounded-md shadow-sm p-4 box-border ")
+            div(class="w-full h-10 flex gap-2")
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big mr-2 h-8 w-8 text-green-500" data-id="33"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
+                h1 Consulta agregada
+            div
+                p La consulta ha sido agregada exitosamente al historial del paciente.
+            a(href="/agenda")  ir a la agenda
