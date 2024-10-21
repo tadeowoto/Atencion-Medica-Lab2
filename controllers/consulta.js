@@ -87,7 +87,7 @@ export class consultaControl{
         }
 
 
-        res.render('consulta', {alergias, antecedentes, habitos, medicamentos, nombre: nombre[0], historialPacienteMedico, historialPacienteGeneral, nombreDoctor: nombreMedico, alergiasOpciones});
+        res.render('consulta', {alergias, antecedentes, habitos, medicamentos, nombre: nombre[0], historialPacienteMedico, historialPacienteGeneral, nombreDoctor: nombreMedico, alergiasOpciones, pacienteId: idDePaciente});
     }
 
 
@@ -100,6 +100,8 @@ export class consultaControl{
         console.log(req.body.importancia)
         console.log(req.body.desdeAlergias)
         console.log(req.body.hastaAlergias)
+        const { idDePaciente } = req.params;
+        console.log(idDePaciente)
 
         //id del turno desde la agenda? id del turno para diagnostico y evolucion
         //id paciente en la ruta

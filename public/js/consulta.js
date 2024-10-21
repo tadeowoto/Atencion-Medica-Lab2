@@ -4,6 +4,14 @@ const textoEvolucion = document.querySelector('#inputEvolucion');
 const limpiar = document.querySelector('#default');
 const diagBox = document.querySelector('#diagnosticoBox');
 const alergiaBox = document.querySelector('#alergiaBox');
+const btnForm = document.querySelector('#btnForm');
+
+btnForm.addEventListener('click', function () {
+    
+})
+
+
+
 selectElement.addEventListener('click', function () {
     const selectedOption = selectElement.value;
     switch (selectedOption) {
