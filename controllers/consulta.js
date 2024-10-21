@@ -1,3 +1,4 @@
+import { consultaDB } from "../models/consultaDB.js";
 import { doctorDB } from "../models/doctorDB.js";
 import { SECRET_KEY } from "../config/config.mjs";
 import { pacienteDB } from "../models/pacienteDB.js";
@@ -7,7 +8,7 @@ import jwt from "jsonwebtoken";
 export class consultaControl{
     
     static async cargarConsulta(req, res){
-        const { idDePaciente } = req.params;
+        const { idDePaciente, idTurno } = req.params;
         const alergias = await pacienteDB.buscarAlergiaPorPaciente(idDePaciente);
         const antecedentes = await pacienteDB.buscarAntecedentePorPaciente(idDePaciente);
         const habitos = await pacienteDB.buscarHabitoPorPaciente(idDePaciente);
@@ -87,7 +88,7 @@ export class consultaControl{
         }
 
 
-        res.render('consulta', {alergias, antecedentes, habitos, medicamentos, nombre: nombre[0], historialPacienteMedico, historialPacienteGeneral, nombreDoctor: nombreMedico, alergiasOpciones, pacienteId: idDePaciente});
+        res.render('consulta', {alergias, antecedentes, habitos, medicamentos, nombre: nombre[0], historialPacienteMedico, historialPacienteGeneral, nombreDoctor: nombreMedico, alergiasOpciones, pacienteId: idDePaciente, idTurno});
     }
 
 
@@ -108,8 +109,8 @@ export class consultaControl{
                 hastaAntecedentes, 
                 medicamentos, } = req.body; // <-- todos los datos del form
 
-        const { idDePaciente } = req.params; // <-- id de la ruta
-
+        const { idDePaciente, idTurno } = req.params; // <-- id de la ruta
+    
         const token = req.cookies.ACC_TOK
         if(!token){
             return res.status(401).redirect('/');
@@ -121,7 +122,47 @@ export class consultaControl{
             res.status(401).send("Token invalido.")
         }
 
+        const resEvolucion = await consultaDB.insertarEvolucion(evolucion, idTurno);
+        if(resEvolucion === null){
+            res.send("No se pudo insertar la evolució́n");
+        }
 
+        
+            for (let i = 0; i < diagnosticos.length; i++) {
+                const resDiagnosticos = await consultaDB.insertarDiagnostico(diagnosticos[i], estadosDiagnosticos[i], idTurno);
+            }
+        
+
+        console.log(alergias)
+        console.log(importancia)
+        console.log(desdeAlergias)
+        console.log(hastaAlergias)
+
+        for (let i = 0; i < alergias.length; i++) {
+            if(alergias[i] !== 'nada' && importancia[i] !== 'nada' && desdeAlergias[i] !== '' && hastaAlergias[i] !== '' ){
+                await consultaDB.insertarAlergia(alergias[i], importancia[i], desdeAlergias[i], hastaAlergias[i], idDePaciente);
+            }
+        } 
+
+        for (let i = 0; i < habitos.length; i++) {
+            if(habitos[i] !== '' && desdeHabitos[i] !== '' && hastaHabitos[i] !== '' ){
+                await consultaDB.insertarHabitos(habitos[i], desdeHabitos[i], hastaHabitos[i], idDePaciente);
+            }
+        }
+
+        for (let i = 0; i < antecedentes.length; i++) {
+            if(antecedentes[i] !== '' && desdeAntecedentes[i] !== '' && hastaAntecedentes[i] !== '' ){
+                await consultaDB.insertarAntecedente(antecedentes[i], desdeAntecedentes[i], hastaAntecedentes[i], idDePaciente);
+            }
+        }
+
+        for (let i = 0; i < medicamentos.length; i++) {
+            if(medicamentos[i] !== ''){
+                await consultaDB.insertarMedicamento(medicamentos[i], idDePaciente);
+            }
+        }
+
+        await consultaDB.actualizarEstadoConsulta(idTurno);
 
 
         //id del turno desde la agenda? id del turno para diagnostico y evolucion

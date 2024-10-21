@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
             if (turno.estado === "pendiente") {
               divActions.innerHTML += `<p class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">Pendiente</p>`;
-              divActions.innerHTML += `<a href="/consulta/${turno.paciente}" class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3">Abrir Consulta</a>`;
+              divActions.innerHTML += `<a href="/consulta/${turno.paciente}/${turno.id}" class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3">Abrir Consulta</a>`;
             } else {
               divActions.innerHTML += `<p class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">Atendido</p>`;
               divActions.innerHTML += `<a href="/consulta/${turno.paciente}" class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3">Ver HCE</a>`;

@@ -17,7 +17,7 @@ block content
                         h3(class="text-2xl font-semibold") Nueva Consulta
 
                     div(class="w-full h-full flex flex-col gap-5 overflow-y-auto")
-                        form(class="flex flex-col gap-6  p-4 bg-white rounded-lg overflow-y-scroll" method="POST" id="formularioConsulta" action=`/consulta/${pacienteId}`)
+                        form(class="flex flex-col gap-6  p-4 bg-white rounded-lg overflow-y-scroll" method="POST" id="formularioConsulta" action=`/consulta/${pacienteId}/${idTurno}`)
                             div(class="w-full h-60")
                                 label(for="evolucion" class="text-md text-secondaryColor font-semibold") Evolución
                                 select(name="evoTemplate" id="selectEvolucion" class="h-10 w-full rounded-md border bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300")
