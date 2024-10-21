@@ -7,7 +7,7 @@ export class pacienteControl{
 
     static async cargarPerfil(req, res){
         // esto son las stats del paciente
-        const { idDePaciente } = req.params;
+        const { idDePaciente, idTurno } = req.params;
         const alergias = await pacienteDB.buscarAlergiaPorPaciente(idDePaciente);
         const antecedentes = await pacienteDB.buscarAntecedentePorPaciente(idDePaciente);
         const habitos = await pacienteDB.buscarHabitoPorPaciente(idDePaciente);
@@ -68,7 +68,7 @@ export class pacienteControl{
         }
 
 
-        res.render('paciente', {alergias, antecedentes, habitos, medicamentos, nombre: nombre[0], historialPacienteMedico, historialPacienteGeneral, nombreDoctor: nombreMedico});
+        res.render('paciente', {alergias, antecedentes, habitos, medicamentos, nombre: nombre[0], historialPacienteMedico, historialPacienteGeneral, nombreDoctor: nombreMedico, idDePaciente, idTurno});
     }
 
 }

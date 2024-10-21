@@ -38,7 +38,7 @@ block content
                                     a(href=`/consulta/${turno.paciente}/${turno.id}` class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3") Abrir Consulta
                                 else     
                                     p(class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800") Atendido 
-                                    a( href=`/paciente/${turno.paciente}`  class="modalConsulta" class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3") Ver HCE
+                                    a( href=`/paciente/${turno.paciente}/${turno.id}`  class="modalConsulta" class="inline-flex items-center justify-center text-sm font-medium transition-colors border border-input bg-transparent hover:bg-primaryForeground/5 h-9 rounded-md px-3") Ver HCE
                   else if agenda === null
                     p No se encontraron turnos para el día de hoy!         
                             
