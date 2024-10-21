@@ -93,18 +93,39 @@ export class consultaControl{
 
     static async insertarConsulta(req,res){
 
-        console.log(req.body.evolucion)
-        console.log(req.body.diagnosticos)
-        console.log(req.body.estadosDiagnosticos)
-        console.log(req.body.alergias)
-        console.log(req.body.importancia)
-        console.log(req.body.desdeAlergias)
-        console.log(req.body.hastaAlergias)
-        const { idDePaciente } = req.params;
-        console.log(idDePaciente)
+        const { evolucion, 
+                diagnosticos, 
+                estadosDiagnosticos, 
+                alergias, 
+                importancia, 
+                desdeAlergias, 
+                hastaAlergias, 
+                habitos, 
+                desdeHabitos, 
+                hastaHabitos, 
+                antecedentes, 
+                desdeAntecedentes, 
+                hastaAntecedentes, 
+                medicamentos, } = req.body; // <-- todos los datos del form
+
+        const { idDePaciente } = req.params; // <-- id de la ruta
+
+        const token = req.cookies.ACC_TOK
+        if(!token){
+            return res.status(401).redirect('/');
+        }
+        try {
+            const data = jwt.verify(token,SECRET_KEY);
+            const doctorId = data.id;
+        } catch (error) {
+            res.status(401).send("Token invalido.")
+        }
+
+
+
 
         //id del turno desde la agenda? id del turno para diagnostico y evolucion
-        //id paciente en la ruta
+        //id paciente en la ruta <-- hice esta en el action del form :))))))
         //pasar estado a atendido
         //render a agenda, user medico, agenda(id medico), fechaactual
     }
