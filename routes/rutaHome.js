@@ -11,5 +11,6 @@ router.get('/agenda', doctorControl.cargarAgenda);
 router.get('/consulta/:idDePaciente/:idTurno',consultaControl.cargarConsulta)
 router.post('/consulta/:idDePaciente/:idTurno', consultaControl.insertarConsulta); 
 router.get('/agenda/:fecha', doctorControl.cargarAgendaPorFecha);
+router.get('/paciente/:idDePaciente', pacienteControl.cargarPerfil)
 router.get('/paciente/:idDePaciente/:idTurno', pacienteControl.cargarPerfil)
 export { router };
