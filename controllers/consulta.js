@@ -133,11 +133,6 @@ export class consultaControl{
             }
         
 
-        console.log(alergias)
-        console.log(importancia)
-        console.log(desdeAlergias)
-        console.log(hastaAlergias)
-
         for (let i = 0; i < alergias.length; i++) {
             if(alergias[i] !== 'nada' && importancia[i] !== 'nada' && desdeAlergias[i] !== '' && hastaAlergias[i] !== '' ){
                 await consultaDB.insertarAlergia(alergias[i], importancia[i], desdeAlergias[i], hastaAlergias[i], idDePaciente);
