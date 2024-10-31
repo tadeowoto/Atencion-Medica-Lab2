@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             const svgUser = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-5 w-5 text-gray-500"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
             const svgMotivo = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text h-5 w-5 text-gray-500" data-id="21"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>`;
             divNyM.innerHTML += svgUser;
-            divNyM.innerHTML += `<a href="/paciente/${turno.paciente}" class="modalPaciente" >${turno.nombre}</a>`;
+            divNyM.innerHTML += `<a href="/paciente/${turno.paciente}/${turno.id}" class="modalPaciente" >${turno.nombre}</a>`;
             divNyM.innerHTML += svgMotivo;
             divNyM.innerHTML += `<p >${turno.motivo}</p>`;
             divInfo.appendChild(divHora);
