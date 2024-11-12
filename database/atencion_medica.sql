@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2024 a las 07:52:04
+-- Tiempo de generación: 12-11-2024 a las 18:52:00
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -42,11 +42,11 @@ CREATE TABLE `agenda` (
 --
 
 INSERT INTO `agenda` (`id`, `motivo`, `medico`, `especialidad`, `evolucion`) VALUES
-(1, 'Chequeo general', 4, 2, NULL),
-(2, 'Control postoperatorio', 4, 2, NULL),
+(1, 'Chequeo general', 4, 2, 'Paciente en seguimiento por [condición o diagnóstico]. Evolución favorable con disminución de [sínto'),
+(2, 'Control postoperatorio', 4, 2, 'Paciente en seguimiento por asdad. Evolución favorable con disminución deasdsa. Examen físico sin ha'),
 (3, 'Aplicacion vacuna de gripe', 5, 2, NULL),
 (4, 'asd', 1, 1, NULL),
-(5, 'Chequeo', 1, 5, NULL);
+(5, 'Chequeo', 1, 5, 'evol');
 
 -- --------------------------------------------------------
 
@@ -106,6 +106,34 @@ CREATE TABLE `diagnosticos` (
   `agenda` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `diagnosticos`
+--
+
+INSERT INTO `diagnosticos` (`id`, `estado`, `detalle`, `agenda`) VALUES
+(1, 'nose', 'nosenosenose', 6),
+(2, 'confirmado', 'nnn', 7),
+(3, 'preliminar', 'dd', 7),
+(4, 'Confirmado', 'testd', 11),
+(5, 'Preliminar', 'test ddd 1', 11),
+(6, 'Preliminar', 'test', 11),
+(7, 'Confirmado', 'test', 11),
+(8, 'Preliminar', 'nuevo', 10),
+(9, 'Preliminar', 'a', 10),
+(10, 'Preliminar', 'as', 11),
+(11, 'Preliminar', 'a', 11),
+(12, 'Preliminar', 'a', 11),
+(13, 'Confirmado', 'f', 11),
+(14, 'Preliminar', 'a', 10),
+(15, 'Preliminar', 'diagnostico', 1),
+(17, 'Preliminar', 'asd', 1),
+(18, 'Preliminar', 'fffffffffffffffffffff', 1),
+(19, 'Confirmado', 'asfafafdsafaffffffffffffffffffff', 1),
+(20, 'Confirmado', 'afasfasfsafsafsfafasfasfsafsafsfafasfasfsafsafsfafasfasfsafsafsfafasfasfsafsafsfafasfasfsafsafsfafas', 1),
+(21, 'Preliminar', 'asdsa', 2),
+(22, 'Confirmado', 'asdas', 2),
+(23, 'Preliminar', 'diag1', 12);
+
 -- --------------------------------------------------------
 
 --
@@ -147,7 +175,8 @@ CREATE TABLE `habitos` (
 --
 
 INSERT INTO `habitos` (`id`, `detalle`, `desde`, `hasta`, `paciente`) VALUES
-(1, 'frey', '2024-10-03', '2024-10-02', 6);
+(1, 'frey', '2024-10-03', '2024-10-02', 6),
+(3, 'fumador', '2024-10-02', '2024-10-31', 13);
 
 -- --------------------------------------------------------
 
@@ -168,7 +197,8 @@ CREATE TABLE `medicamentos` (
 INSERT INTO `medicamentos` (`id`, `detalle`, `paciente`) VALUES
 (1, 'paracetamol', 13),
 (2, 'novalgina', 13),
-(3, 'as', 6);
+(3, 'as', 6),
+(4, 'fad', 13);
 
 -- --------------------------------------------------------
 
@@ -256,15 +286,19 @@ CREATE TABLE `turnos` (
 --
 
 INSERT INTO `turnos` (`id`, `agenda`, `paciente`, `estado`, `fecha`, `inicio`) VALUES
-(1, 1, 11, 'pendiente', '2024-10-07', '12:06:40'),
-(2, 2, 13, 'pendiente', '2024-10-07', '05:34:46'),
+(1, 1, 11, 'atendido', '2024-10-07', '12:06:40'),
+(2, 2, 13, 'atendido', '2024-10-07', '05:34:46'),
 (3, 3, 9, 'pendiente', '2024-10-07', '12:06:40'),
 (5, 1, 13, '1', '0000-00-00', '00:00:00'),
 (6, 1, 13, '1', '2024-10-23', '16:26:20'),
 (7, 2, 13, '1', '2018-10-10', '00:26:39'),
 (8, 4, 13, '1', '2024-10-08', '27:27:56'),
 (9, 5, 13, '4', '2024-10-29', '25:28:07'),
-(10, 1, 13, 'a', '2024-10-09', '19:30:42');
+(10, 1, 13, 'atendido', '2024-10-09', '19:30:42'),
+(11, 1, 13, 'atendido', '2024-10-15', '17:00:00'),
+(12, 5, 12, 'atendido', '2024-11-12', '14:42:00'),
+(13, 4, 7, 'pendiente', '2024-11-12', '11:50:12'),
+(14, 5, 13, 'pendiente', '2024-11-12', '17:50:36');
 
 --
 -- Índices para tablas volcadas
@@ -297,7 +331,7 @@ ALTER TABLE `antecedentes`
 --
 ALTER TABLE `diagnosticos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `agenda` (`agenda`);
+  ADD KEY `diagnosticos_ibfk_1` (`agenda`);
 
 --
 -- Indices de la tabla `especialidades`
@@ -365,7 +399,7 @@ ALTER TABLE `antecedentes`
 -- AUTO_INCREMENT de la tabla `diagnosticos`
 --
 ALTER TABLE `diagnosticos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `especialidades`
@@ -377,13 +411,13 @@ ALTER TABLE `especialidades`
 -- AUTO_INCREMENT de la tabla `habitos`
 --
 ALTER TABLE `habitos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `medicamentos`
 --
 ALTER TABLE `medicamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `medico`
@@ -401,7 +435,7 @@ ALTER TABLE `paciente`
 -- AUTO_INCREMENT de la tabla `turnos`
 --
 ALTER TABLE `turnos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
@@ -430,7 +464,7 @@ ALTER TABLE `antecedentes`
 -- Filtros para la tabla `diagnosticos`
 --
 ALTER TABLE `diagnosticos`
-  ADD CONSTRAINT `diagnosticos_ibfk_1` FOREIGN KEY (`agenda`) REFERENCES `agenda` (`id`);
+  ADD CONSTRAINT `diagnosticos_ibfk_1` FOREIGN KEY (`agenda`) REFERENCES `turnos` (`id`);
 
 --
 -- Filtros para la tabla `habitos`
